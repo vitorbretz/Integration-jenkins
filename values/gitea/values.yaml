@@ -15,10 +15,13 @@ global:
   ##
   imagePullSecrets: []
   storageClass: ""
-  hostAliases: []
-  # - ip: 192.168.137.2
-  #   hostnames:
-  #   - example.com
+  hostAliases:
+    - ip: 172.18.0.50
+      hostnames:
+        - jenkins.localhost.com
+        - argocd.localhost.com
+        - sonarqube.localhost.com
+        - harbor.localhost.com
 
 ## @param replicaCount number of replicas for the deployment
 replicaCount: 1
@@ -394,6 +397,8 @@ gitea:
   ## @param gitea.config.server.SSH_PORT SSH port for rootlful Gitea image
   ## @param gitea.config.server.SSH_LISTEN_PORT SSH port for rootless Gitea image
   config:
+    database:
+      DB_TYPE: sqlite3
     #  APP_NAME: "Gitea: Git with a cup of tea"
     #  RUN_MODE: dev
     server:
@@ -512,13 +517,21 @@ postgresql-ha:
       database: gitea
       password: gitea
       username: gitea
-  enabled: true
+  enabled: false
   postgresql:
     repmgrPassword: changeme2
     postgresPassword: changeme1
     password: changeme4
+    image:
+      registry: docker.io
+      repository: bitnami/postgresql-repmgr
+      tag: 16
   pgpool:
     adminPassword: changeme3
+    image:
+      registry: docker.io
+      repository: bitnami/pgpool
+      tag: 4
   service:
     ports:
       postgresql: 5432
