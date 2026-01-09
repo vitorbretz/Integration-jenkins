@@ -44,7 +44,7 @@ releases:
   namespace: harbor
   createNamespace: true
   chart: harbor/harbor
-  version: 1.14.0
+  version: 1.18.1
   values:
     - values/harbor/values.yaml
 
@@ -52,7 +52,7 @@ releases:
   namespace: sonarqube
   createNamespace: true
   chart: sonarqube/sonarqube
-  version: 10.4.0+2288
+  version: 2025.6.1
   values:
     - values/sonarqube/values.yaml
 
